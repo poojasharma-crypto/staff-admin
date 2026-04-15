@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 User-Agent: *
 Disallow:
+=======
+User-Agent: *
+Disallow:
+>>>>>>> menu

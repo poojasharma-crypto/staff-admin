@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* 🔥 Custom Toast Style */
 .custom-toast {
   border-radius: 12px !important;
@@ -10,4 +11,18 @@
 .Vue-Toastification__toast--success {
   background: linear-gradient(135deg, #22c55e, #16a34a) !important;
   color: white !important;
+=======
+/* 🔥 Custom Toast Style */
+.custom-toast {
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Success style (green) */
+.Vue-Toastification__toast--success {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  color: white !important;
+>>>>>>> menu
 }

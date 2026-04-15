@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export default defineNuxtRouteMiddleware(() => {
   if (process.client) {
     const user = localStorage.getItem('user')
@@ -6,4 +7,14 @@ export default defineNuxtRouteMiddleware(() => {
       return navigateTo('/dashboard')
     }
   }
+=======
+export default defineNuxtRouteMiddleware(() => {
+  if (process.client) {
+    const user = localStorage.getItem('user')
+
+    if (user) {
+      return navigateTo('/dashboard')
+    }
+  }
+>>>>>>> menu
 })
