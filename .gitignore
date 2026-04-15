@@ -1,99 +1,11 @@
-<<<<<<< HEAD
-# Node modules
-
 node_modules/
-
-# Logs
-
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
-
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Dependency directories
-
-jspm_packages/
-
-# Environment variables
-
+.nuxt/
+.output/
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Build folders
-
+.env.*
 dist/
 build/
-
-# OS files
-
-.DS_Store
-Thumbs.db
-
-# IDE files
-
-.vscode/
-.idea/
-=======
-<<<<<<< HEAD
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
-
-# Node dependencies
-node_modules
-
-# Logs
-logs
+.cache/
+logs/
 *.log
-
-# Misc
 .DS_Store
-.fleet
-.idea
-
-# Local env files
-.env
-.env.*
-!.env.example
-=======
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
-
-# Node dependencies
-node_modules
-
-# Logs
-logs
-*.log
-
-# Misc
-.DS_Store
-.fleet
-.idea
-
-# Local env files
-.env
-.env.*
-!.env.example
->>>>>>> menu
->>>>>>> 07d11d8f2525a4b7acbde2b15c0d57ac579f96fd
