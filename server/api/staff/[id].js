@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
     const {
       company_id,
       name,
+      gender,
       email,
       mobile,
       profile_image,
@@ -39,13 +40,14 @@ export default defineEventHandler(async (event) => {
 
       await db.execute(`
         UPDATE staff
-        SET company_id=?, name=?, email=?, mobile=?, profile_image=?,
+        SET company_id=?, name=?, gender=?, email=?, mobile=?, profile_image=?,
             department_id=?, designation=?, join_date=?, salary=?, salary_type=?,
             username=?, password=?, last_login=?, login_ip=?
         WHERE id=?
       `, [
         company_id,
         name,
+        gender || null,
         email,
         mobile || null,
         profile_image || null,
@@ -65,13 +67,14 @@ export default defineEventHandler(async (event) => {
       // 👉 WITHOUT PASSWORD
       await db.execute(`
         UPDATE staff
-        SET company_id=?, name=?, email=?, mobile=?, profile_image=?,
+        SET company_id=?, name=?, gender=?, email=?, mobile=?, profile_image=?,
             department_id=?, designation=?, join_date=?, salary=?, salary_type=?,
             username=?, last_login=?, login_ip=?
         WHERE id=?
       `, [
         company_id,
         name,
+        gender || null,
         email,
         mobile || null,
         profile_image || null,

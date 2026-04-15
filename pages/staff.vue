@@ -54,6 +54,7 @@
                 <th class="th-num">#</th>
                 <th>Company</th>
                 <th>Name</th>
+                <th>Gender</th>
                 <th>Email</th>
                 <th>Mobile</th>
                 <th>Department</th>
@@ -63,7 +64,7 @@
             </thead>
             <tbody>
               <tr v-if="filtered.length === 0">
-                <td colspan="8" class="empty-state">
+                <td colspan="9" class="empty-state">
                   <div class="empty-inner">
                     <p>No staff found</p>
                     <button @click="openCreate" class="btn-add-sm">+ Add your first staff</button>
@@ -75,6 +76,7 @@
                 <td class="td-num">{{ ((currentPage - 1) * pageSize) + i + 1 }}</td>
                 <td>{{ r.company_name || '—' }}</td>
                 <td><span class="company-name">{{ r.name }}</span></td>
+                <td>{{ r.gender || '—' }}</td>
                 <td>{{ r.email }}</td>
                 <td class="mono">{{ r.mobile || '—' }}</td>
                <td>{{ r.department_name || '—' }}</td>
@@ -148,6 +150,15 @@
               <div class="field">
                 <label class="label">Email <span class="req">*</span></label>
                 <input v-model="form.email" type="email" class="input" required />
+              </div>
+              <div class="field">
+                <label class="label">Gender</label>
+                <select v-model="form.gender" class="input">
+                  <option value="">Select gender...</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               <div class="field">
                 <label class="label">Mobile</label>
@@ -266,6 +277,7 @@
         </div>
 
         <div class="view-item"><b>Name:</b> {{ viewData.name || '—' }}</div>
+        <div class="view-item"><b>Gender:</b> {{ viewData.gender || '—' }}</div>
         <div class="view-item"><b>Email:</b> {{ viewData.email || '—' }}</div>
         <div class="view-item"><b>Mobile:</b> {{ viewData.mobile || '—' }}</div>
 
@@ -313,7 +325,7 @@ const pageSize = 10
 const currentPage = ref(1)
 
 const formDefault = {
-  id: null, company_id: '', name: '', email: '', mobile: '', profile_image: '',
+  id: null, company_id: '', name: '', email: '', gender: '', mobile: '', profile_image: '',
   department_id: '', designation: '', join_date: '', salary: null, salary_type: '',
   username: '', password: '', last_login: '', login_ip: ''
 }
@@ -323,7 +335,7 @@ const filtered = computed(() => {
   const q = search.value.trim().toLowerCase()
   if (!q) return rows.value
   return rows.value.filter((r) =>
-    [r.name, r.email, r.mobile, r.username, r.department, r.designation, r.company_name]
+    [r.name, r.gender, r.email, r.mobile, r.username, r.department, r.designation, r.company_name]
       .map((v) => String(v || '').toLowerCase())
       .some((v) => v.includes(q))
   )
@@ -386,7 +398,7 @@ const openCreate = () => { resetForm(); showForm.value = true }
 const openEdit = (row) => {
   Object.assign(form, {
     id: row.id, company_id: row.company_id || '', name: row.name || '', email: row.email || '',
-    mobile: row.mobile || '', profile_image: row.profile_image || '', department_id: row.department_id || '',
+    gender: row.gender || '', mobile: row.mobile || '', profile_image: row.profile_image || '', department_id: row.department_id || '',
     designation: row.designation || '', join_date: toDateInput(row.join_date), salary: row.salary ?? null,
     salary_type: row.salary_type || '', username: row.username || '', password: '',
     last_login: toDateTimeInput(row.last_login), login_ip: row.login_ip || ''

@@ -38,6 +38,7 @@ export default defineEventHandler(async (event) => {
         s.id,
         s.name,
         s.email,
+        s.gender,
         s.mobile,
         s.profile_image,
         s.designation,
