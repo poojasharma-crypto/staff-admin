@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "files": [],
@@ -16,3 +19,27 @@
     }
   ]
 }
+=======
+>>>>>>> 07d11d8f2525a4b7acbde2b15c0d57ac579f96fd
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "files": [],
+  "references": [
+    {
+      "path": "./.nuxt/tsconfig.app.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.server.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.shared.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.node.json"
+    }
+  ]
+}
+<<<<<<< HEAD
+=======
+>>>>>>> menu
+>>>>>>> 07d11d8f2525a4b7acbde2b15c0d57ac579f96fd

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node modules
 
 node_modules/
@@ -43,3 +44,56 @@ Thumbs.db
 
 .vscode/
 .idea/
+=======
+<<<<<<< HEAD
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+=======
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+>>>>>>> menu
+>>>>>>> 07d11d8f2525a4b7acbde2b15c0d57ac579f96fd

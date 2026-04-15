@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
 /* 🔥 Custom Toast Style */
 .custom-toast {
   border-radius: 12px !important;
@@ -10,4 +13,22 @@
 .Vue-Toastification__toast--success {
   background: linear-gradient(135deg, #22c55e, #16a34a) !important;
   color: white !important;
+=======
+>>>>>>> 07d11d8f2525a4b7acbde2b15c0d57ac579f96fd
+/* 🔥 Custom Toast Style */
+.custom-toast {
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Success style (green) */
+.Vue-Toastification__toast--success {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  color: white !important;
+<<<<<<< HEAD
+=======
+>>>>>>> menu
+>>>>>>> 07d11d8f2525a4b7acbde2b15c0d57ac579f96fd
 }
