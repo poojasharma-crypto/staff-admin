@@ -4,55 +4,42 @@
     <!-- Sidebar -->
     <aside
       class="bg-gray-900 text-white h-screen fixed left-0 top-0 p-3 z-40 overflow-hidden transition-all duration-200"
-      :class="isSidebarOpen ? 'w-64' : 'w-20'"
-    >
+      :class="isSidebarOpen ? 'w-64' : 'w-20'">
 
       <div class="flex items-center justify-between mb-6 px-1">
         <h2 v-if="isSidebarOpen" class="text-xl font-bold">Admin Panel</h2>
         <!-- Sidebar Search -->
 
-        <button
-          @click="toggleSidebar"
-          class="p-1.5 rounded hover:bg-gray-700 text-gray-200"
-          :class="!isSidebarOpen ? 'mx-auto' : ''"
-          :aria-label="isSidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'"
-        >
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+        <button @click="toggleSidebar" class="p-1.5 rounded hover:bg-gray-700 text-gray-200"
+          :class="!isSidebarOpen ? 'mx-auto' : ''" :aria-label="isSidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"
+            aria-hidden="true">
             <path v-if="isSidebarOpen" d="M15 18l-6-6 6-6" />
             <path v-else d="M9 18l6-6-6-6" />
           </svg>
         </button>
       </div>
-<div v-if="isSidebarOpen" class="mt-3 px-1 relative">
-  
-  <!-- Input -->
-  <input
-    v-model="menuSearch"
-    type="text"
-    placeholder="Search menu..."
-    class="w-full px-3 py-2 pr-8 rounded bg-gray-800 text-sm text-white border border-gray-700 focus:outline-none focus:border-teal-500"
-  />
+      <div v-if="isSidebarOpen" class="mt-3 px-1 relative">
 
-  <!-- Clear (X) Button -->
-  <button
-    v-if="menuSearch"
-    @click="menuSearch = ''"
-    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-  >
-    ✕
-  </button>
+        <!-- Input -->
+        <input v-model="menuSearch" type="text" placeholder="Search menu..."
+          class="w-full px-3 py-2 pr-8 rounded bg-gray-800 text-sm text-white border border-gray-700 focus:outline-none focus:border-teal-500" />
 
-</div>
+        <!-- Clear (X) Button -->
+        <button v-if="menuSearch" @click="menuSearch = ''"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+          ✕
+        </button>
+
+      </div>
       <nav class="space-y-3">
 
-        <NuxtLink
-         v-if="!menuSearch || 'dashboard'.includes(menuSearch.toLowerCase())"
-          to="/dashboard"
+        <NuxtLink v-if="!menuSearch || 'dashboard'.includes(menuSearch.toLowerCase())" to="/dashboard"
           class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
           :title="!isSidebarOpen ? 'Dashboard' : ''"
-          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/dashboard')]"
-        >
-          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/dashboard')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="3" width="8" height="8" rx="1" />
             <rect x="13" y="3" width="8" height="5" rx="1" />
             <rect x="13" y="10" width="8" height="11" rx="1" />
@@ -60,15 +47,13 @@
           </svg>
           <span v-if="isSidebarOpen">Dashboard</span>
         </NuxtLink>
-
-        <NuxtLink
-          v-if="!menuSearch || 'company'.includes(menuSearch.toLowerCase())"
-          to="/company"
+        <!-- Company -->
+        <NuxtLink v-if="!menuSearch || 'company'.includes(menuSearch.toLowerCase())" to="/company"
           class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
           :title="!isSidebarOpen ? 'Company' : ''"
-          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/company')]"
-        >
-          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/company')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 21h18" />
             <path d="M5 21V8l7-4 7 4v13" />
             <path d="M9 13h6" />
@@ -76,15 +61,12 @@
           </svg>
           <span v-if="isSidebarOpen">Company</span>
         </NuxtLink>
-
-        <NuxtLink
-        v-if="!menuSearch || 'staff'.includes(menuSearch.toLowerCase())"
-          to="/staff"
+        <!-- Staff -->
+        <NuxtLink v-if="!menuSearch || 'staff'.includes(menuSearch.toLowerCase())" to="/staff"
           class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
-          :title="!isSidebarOpen ? 'Staff' : ''"
-          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/staff')]"
-        >
-          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          :title="!isSidebarOpen ? 'Staff' : ''" :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/staff')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" aria-hidden="true">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
             <circle cx="9" cy="7" r="4" />
             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -92,31 +74,47 @@
           </svg>
           <span v-if="isSidebarOpen">Staff</span>
         </NuxtLink>
-<NuxtLink
- v-if="!menuSearch || 'departments'.includes(menuSearch.toLowerCase())"
-  to="/departments"
-  class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
-  :title="!isSidebarOpen ? 'Departments' : ''"
-  :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/departments')]"
->
-  <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path d="M3 3h18v6H3z" />
-    <path d="M3 15h18v6H3z" />
-    <path d="M3 9h18v6H3z" />
-  </svg>
 
-  <span v-if="isSidebarOpen">Departments</span>
-</NuxtLink>
-        <NuxtLink
-        v-if="!menuSearch || 'settings'.includes(menuSearch.toLowerCase())"
-          to="/settings"
+        <!-- Departments  -->
+        <NuxtLink v-if="!menuSearch || 'departments'.includes(menuSearch.toLowerCase())" to="/departments"
+          class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
+          :title="!isSidebarOpen ? 'Departments' : ''"
+          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/departments')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M3 3h18v6H3z" />
+            <path d="M3 15h18v6H3z" />
+            <path d="M3 9h18v6H3z" />
+          </svg>
+
+          <span v-if="isSidebarOpen">Departments</span>
+        </NuxtLink>
+
+        <!-- Leave Requests -->
+        <NuxtLink v-if="!menuSearch || 'Leave Request'.includes(menuSearch.toLowerCase())" to="/leave_request/"
+          class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
+          :title="!isSidebarOpen ? 'Leave Request' : ''"
+          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/leave_request')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          
+          <span v-if="isSidebarOpen">Leave Request</span>
+        </NuxtLink>
+
+        <NuxtLink v-if="!menuSearch || 'settings'.includes(menuSearch.toLowerCase())" to="/settings"
           class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
           :title="!isSidebarOpen ? 'Settings' : ''"
-          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/settings')]"
-        >
-          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/settings')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
           </svg>
           <span v-if="isSidebarOpen">Settings</span>
         </NuxtLink>
@@ -126,29 +124,21 @@
     </aside>
 
     <!-- Main Content -->
-    <div
-      class="flex-1 min-h-screen bg-gray-100 transition-all duration-200"
-      :class="isSidebarOpen ? 'ml-64' : 'ml-20'"
-    >
+    <div class="flex-1 min-h-screen bg-gray-100 transition-all duration-200" :class="isSidebarOpen ? 'ml-64' : 'ml-20'">
 
       <!-- Header -->
       <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
 
         <div class="flex items-center gap-3">
-      
+
         </div>
 
         <!-- Profile -->
         <div class="relative">
 
           <!-- Profile Button -->
-          <div
-            @click="toggleDropdown"
-            class="flex items-center gap-2 cursor-pointer"
-          >
-            <div
-              class="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center"
-            >
+          <div @click="toggleDropdown" class="flex items-center gap-2 cursor-pointer">
+            <div class="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center">
               {{ user?.name?.charAt(0) || 'A' }}
             </div>
 
@@ -158,23 +148,14 @@
           </div>
 
           <!-- Dropdown -->
-          <div
-            v-if="showDropdown"
-            class="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50"
-          >
+          <div v-if="showDropdown" class="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50">
             <ul class="text-sm">
 
-              <li
-                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                @click="goProfile"
-              >
+              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" @click="goProfile">
                 Edit Profile
               </li>
 
-              <li
-                class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
-                @click="logout"
-              >
+              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500" @click="logout">
                 Logout
               </li>
 
