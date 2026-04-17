@@ -102,8 +102,24 @@
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
-          
+
           <span v-if="isSidebarOpen">Leave Request</span>
+        </NuxtLink>
+
+        <!-- Announcements -->
+        <NuxtLink v-if="!menuSearch || 'Announcements'.includes(menuSearch.toLowerCase())" to="/announcements/"
+          class="!flex !flex-row items-center p-2 rounded whitespace-nowrap gap-3 px-3"
+          :title="!isSidebarOpen ? 'Announcements' : ''"
+          :class="[!isSidebarOpen ? 'justify-center' : '', isActive('/announcements/')]">
+          <svg class="shrink-0" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+
+          <span v-if="isSidebarOpen">Announcements</span>
         </NuxtLink>
 
         <NuxtLink v-if="!menuSearch || 'settings'.includes(menuSearch.toLowerCase())" to="/settings"
