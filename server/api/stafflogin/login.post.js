@@ -1,6 +1,5 @@
 import { db } from '../../utils/db'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -15,7 +14,7 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    // ✅ 2. Fetch staff
+    // ✅ 2. Fetch staff by MOBILE
     const [rows] = await db.execute(
       'SELECT id, name, email, mobile, username, password, company_id, designation FROM staff WHERE mobile = ?',
       [mobile]
@@ -40,22 +39,10 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    // ✅ 4. Generate JWT Token
-    const token = jwt.sign(
-      {
-        id: staff.id,
-        mobile: staff.mobile,
-        company_id: staff.company_id
-      },
-      process.env.JWT_SECRET || 'your_secret_key',
-      { expiresIn: '7d' }
-    )
-
-    // ✅ 5. Success response
+    // ✅ 4. Success response
     return {
       status: true,
       message: 'Login successful',
-      token, // ✅ token added
       data: {
         id: staff.id,
         name: staff.name,

@@ -3,6 +3,15 @@ import type { Serialize, Simplify } from "nitropack/types";
 declare module "nitropack/types" {
   type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
   interface InternalApi {
+    '/api/announcements/:id': {
+      'delete': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/announcements/[id].delete').default>>>>
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/announcements/[id].get').default>>>>
+      'put': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/announcements/[id].put').default>>>>
+    }
+    '/api/announcements': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/announcements/index.get').default>>>>
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/announcements/index.post').default>>>>
+    }
     '/api/company/:id': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/company/[id]').default>>>>
     }
@@ -23,6 +32,7 @@ declare module "nitropack/types" {
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/login.post').default>>>>
     }
     '/api/salary': {
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/salary/index.get').default>>>>
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/salary/index.post').default>>>>
     }
     '/api/staff/:id': {

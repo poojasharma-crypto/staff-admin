@@ -12,9 +12,10 @@ export default defineEventHandler(async (event) => {
         s.company_id,
         c.name AS company_name,
         s.name,
-        s.gender,
         s.email,
         s.mobile,
+        s.location,
+        s.dob,
         s.profile_image,
 
         s.department_id,
@@ -45,9 +46,10 @@ export default defineEventHandler(async (event) => {
     const {
       company_id,
       name,
-      gender,
       email,
       mobile,
+      location,
+      dob,
       profile_image,
       department_id,   // ✅ IMPORTANT
       designation,
@@ -74,9 +76,10 @@ export default defineEventHandler(async (event) => {
       (
         company_id,
         name,
-        gender,
         email,
         mobile,
+        location,
+        dob,
         profile_image,
         department_id,
         designation,
@@ -88,13 +91,14 @@ export default defineEventHandler(async (event) => {
         last_login,
         login_ip
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `, [
       company_id,
       name,
-      gender || null,
       email,
       mobile || null,
+      location || null,
+      dob || null,
       profile_image || null,
       department_id || null,   // ✅ FIXED
       designation || null,

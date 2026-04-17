@@ -9,11 +9,17 @@
         </div>
         <div class="page-header-right">
           <div class="search-wrap">
-            <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
             <input v-model="search" placeholder="Search staff..." class="search-input" />
           </div>
           <button @click="openCreate" class="btn-add">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
             Add Staff
           </button>
         </div>
@@ -54,9 +60,10 @@
                 <th class="th-num">#</th>
                 <th>Company</th>
                 <th>Name</th>
-                <th>Gender</th>
                 <th>Email</th>
                 <th>Mobile</th>
+                <th>Location</th>
+                <th>DOB</th>
                 <th>Department</th>
                 <th>Designation</th>
                 <th class="th-action">Actions</th>
@@ -64,7 +71,7 @@
             </thead>
             <tbody>
               <tr v-if="filtered.length === 0">
-                <td colspan="9" class="empty-state">
+                <td colspan="8" class="empty-state">
                   <div class="empty-inner">
                     <p>No staff found</p>
                     <button @click="openCreate" class="btn-add-sm">+ Add your first staff</button>
@@ -76,26 +83,38 @@
                 <td class="td-num">{{ ((currentPage - 1) * pageSize) + i + 1 }}</td>
                 <td>{{ r.company_name || '—' }}</td>
                 <td><span class="company-name">{{ r.name }}</span></td>
-                <td>{{ r.gender || '—' }}</td>
                 <td>{{ r.email }}</td>
                 <td class="mono">{{ r.mobile || '—' }}</td>
-               <td>{{ r.department_name || '—' }}</td>
+
+                <td class="mono">{{ r.location || '—' }}</td>
+                <td>{{ formatDate(r.dob) }}</td>
+
+                <td>{{ r.department_name || '—' }}</td>
                 <td>{{ r.designation || '—' }}</td>
                 <td>
                   <div class="action-group">
-                      <!-- VIEW -->
+                    <!-- VIEW -->
                     <button @click="openView(r)" class="btn-icon btn-icon-view" title="View">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-      <circle cx="12" cy="12" r="3"/>
-    </svg>
-  </button>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
 
                     <button @click="openEdit(r)" class="btn-icon btn-icon-edit" title="Edit">
-                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                      </svg>
                     </button>
                     <button @click="deleteStaff(r.id)" class="btn-icon btn-icon-del" title="Delete">
-                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                      </svg>
                     </button>
                   </div>
                 </td>
@@ -108,16 +127,12 @@
           <span class="pagination-meta">Showing {{ startRow }}-{{ endRow }} of {{ filtered.length }}</span>
           <div class="pagination-controls">
             <button class="page-btn" :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">Prev</button>
-            <button
-              v-for="p in totalPages"
-              :key="p"
-              class="page-btn"
-              :class="{ 'page-btn-active': p === currentPage }"
-              @click="goToPage(p)"
-            >
+            <button v-for="p in totalPages" :key="p" class="page-btn" :class="{ 'page-btn-active': p === currentPage }"
+              @click="goToPage(p)">
               {{ p }}
             </button>
-            <button class="page-btn" :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">Next</button>
+            <button class="page-btn" :disabled="currentPage === totalPages"
+              @click="goToPage(currentPage + 1)">Next</button>
           </div>
         </div>
       </div>
@@ -152,38 +167,33 @@
                 <input v-model="form.email" type="email" class="input" required />
               </div>
               <div class="field">
-                <label class="label">Gender</label>
-                <select v-model="form.gender" class="input">
-                  <option value="">Select gender...</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="field">
                 <label class="label">Mobile</label>
                 <input v-model="form.mobile" class="input" />
               </div>
-             <div class="field">
-  <label class="label">Department</label>
- <select
-  v-model="form.department_id"
-  class="input"
-  :disabled="!form.company_id"
->
-  <option value="">
-    {{ form.company_id ? 'Select department...' : 'Select company first' }}
-  </option>
 
-  <option
-    v-for="d in filteredDepartments"
-    :key="d.id"
-    :value="d.id"
-  >
-    {{ d.department_name }}
-  </option>
-</select>
-</div>
+              <div class="field">
+                <label class="label">location</label>
+                <input v-model="form.location" class="input" />
+              </div>
+
+              <div class="field">
+                <label class="label">Dob</label>
+                <input v-model="form.dob" type="date" class="input" />
+              </div>
+
+
+              <div class="field">
+                <label class="label">Department</label>
+                <select v-model="form.department_id" class="input" :disabled="!form.company_id">
+                  <option value="">
+                    {{ form.company_id ? 'Select department...' : 'Select company first' }}
+                  </option>
+
+                  <option v-for="d in filteredDepartments" :key="d.id" :value="d.id">
+                    {{ d.department_name }}
+                  </option>
+                </select>
+              </div>
               <div class="field">
                 <label class="label">Designation</label>
                 <input v-model="form.designation" class="input" />
@@ -211,18 +221,14 @@
               </div>
               <div class="field">
                 <label class="label">{{ form.id ? 'Password (optional)' : 'Password *' }}</label>
-             <div class="password-wrap">
-  <input
-    v-model="form.password"
-    :type="showPassword ? 'text' : 'password'"
-    class="input password-input"
-    :required="!form.id"
-  />
+                <div class="password-wrap">
+                  <input v-model="form.password" :type="showPassword ? 'text' : 'password'" class="input password-input"
+                    :required="!form.id" />
 
-  <span class="toggle-eye" @click="showPassword = !showPassword">
-    {{ showPassword ? '🙈' : '👁️' }}
-  </span>
-</div>
+                  <span class="toggle-eye" @click="showPassword = !showPassword">
+                    {{ showPassword ? '🙈' : '👁️' }}
+                  </span>
+                </div>
               </div>
               <div class="field">
                 <label class="label">Last Login</label>
@@ -238,15 +244,24 @@
               </div>
               <div class="field staff-full">
                 <label class="label">Upload Profile Image</label>
-                <div :class="['upload-area', { 'upload-area-has-image': !!form.profile_image }]" @click="triggerUpload" @dragover.prevent @drop.prevent="onDropUpload">
-                  <img v-if="form.profile_image" :src="resolveImageUrl(form.profile_image)" class="upload-preview" alt="Profile image preview" />
+                <div :class="['upload-area', { 'upload-area-has-image': !!form.profile_image }]" @click="triggerUpload"
+                  @dragover.prevent @drop.prevent="onDropUpload">
+                  <img v-if="form.profile_image" :src="resolveImageUrl(form.profile_image)" class="upload-preview"
+                    alt="Profile image preview" />
                   <div v-else class="upload-placeholder">
-                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:#94a3b8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                      style="color:#94a3b8">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
                     <span>{{ uploadingImage ? 'Uploading image...' : 'Click or drag image here' }}</span>
                   </div>
-                  <input ref="fileInput" type="file" accept="image/*" @change="uploadProfileImage" style="display:none" />
+                  <input ref="fileInput" type="file" accept="image/*" @change="uploadProfileImage"
+                    style="display:none" />
                 </div>
-                <button v-if="form.profile_image" type="button" @click="form.profile_image = ''" class="remove-logo">Remove image</button>
+                <button v-if="form.profile_image" type="button" @click="form.profile_image = ''"
+                  class="remove-logo">Remove image</button>
               </div>
               <div class="modal-footer staff-full">
                 <button type="button" class="btn-cancel" @click="closeForm">Cancel</button>
@@ -257,47 +272,50 @@
         </Transition>
       </div>
     </Transition>
-<Transition name="slide-right">
-  <div v-if="showView" class="view-overlay" @click.self="showView=false">
-    
-    <div class="view-panel">
-      
-      <!-- Header -->
-      <div class="view-header">
-        <h2>Staff Details</h2>
-        <button class="view-close" @click="showView=false">✕</button>
-      </div>
+    <Transition name="slide-right">
+      <div v-if="showView" class="view-overlay" @click.self="showView = false">
 
-      <!-- Body -->
-      <div class="view-body">
+        <div class="view-panel">
 
-        <div class="view-img">
-          <img v-if="viewData.profile_image" :src="resolveImageUrl(viewData.profile_image)" alt="Staff image" />
-          <div v-else class="view-img-empty">No image</div>
+          <!-- Header -->
+          <div class="view-header">
+            <h2>Staff Details</h2>
+            <button class="view-close" @click="showView = false">✕</button>
+          </div>
+
+          <!-- Body -->
+          <div class="view-body">
+
+            <div class="view-img">
+              <img v-if="viewData.profile_image" :src="resolveImageUrl(viewData.profile_image)" alt="Staff image" />
+              <div v-else class="view-img-empty">No image</div>
+            </div>
+
+            <div class="view-item"><b>Name:</b> {{ viewData.name || '—' }}</div>
+            <div class="view-item"><b>Email:</b> {{ viewData.email || '—' }}</div>
+            <div class="view-item"><b>Mobile:</b> {{ viewData.mobile || '—' }}</div>
+
+            <div class="view-item"><b>location:</b> {{ viewData.location || '—' }}</div>
+            <div class="view-item"><b>Dob:</b> {{ viewData.dob || '—' }}</div>
+            
+
+            <div class="view-item"><b>Company:</b> {{ viewData.company_name || '—' }}</div>
+            <div class="view-item"><b>Department:</b> {{ viewData.department_name || '—' }}</div>
+            <div class="view-item"><b>Designation:</b> {{ viewData.designation || '—' }}</div>
+
+            <div class="view-item"><b>Join Date:</b> {{ formatDate(viewData.join_date) }}</div>
+            <div class="view-item"><b>Salary:</b> {{ viewData.salary ?? '—' }}</div>
+            <div class="view-item"><b>Salary Type:</b> {{ viewData.salary_type || '—' }}</div>
+
+            <div class="view-item"><b>Username:</b> {{ viewData.username || '—' }}</div>
+            <div class="view-item"><b>Last Login:</b> {{ formatDateTime(viewData.last_login) }}</div>
+            <div class="view-item"><b>Login IP:</b> {{ viewData.login_ip || '—' }}</div>
+
+          </div>
+
         </div>
-
-        <div class="view-item"><b>Name:</b> {{ viewData.name || '—' }}</div>
-        <div class="view-item"><b>Gender:</b> {{ viewData.gender || '—' }}</div>
-        <div class="view-item"><b>Email:</b> {{ viewData.email || '—' }}</div>
-        <div class="view-item"><b>Mobile:</b> {{ viewData.mobile || '—' }}</div>
-
-        <div class="view-item"><b>Company:</b> {{ viewData.company_name || '—' }}</div>
-      <div class="view-item"><b>Department:</b> {{ viewData.department_name || '—' }}</div>
-        <div class="view-item"><b>Designation:</b> {{ viewData.designation || '—' }}</div>
-
-        <div class="view-item"><b>Join Date:</b> {{ formatDate(viewData.join_date) }}</div>
-        <div class="view-item"><b>Salary:</b> {{ viewData.salary ?? '—' }}</div>
-        <div class="view-item"><b>Salary Type:</b> {{ viewData.salary_type || '—' }}</div>
-
-        <div class="view-item"><b>Username:</b> {{ viewData.username || '—' }}</div>
-        <div class="view-item"><b>Last Login:</b> {{ formatDateTime(viewData.last_login) }}</div>
-        <div class="view-item"><b>Login IP:</b> {{ viewData.login_ip || '—' }}</div>
-
       </div>
-
-    </div>
-  </div>
-</Transition>
+    </Transition>
     <Transition name="toast">
       <div v-if="toast.show" :class="['toast', 'toast-' + toast.type]">{{ toast.message }}</div>
     </Transition>
@@ -325,7 +343,7 @@ const pageSize = 10
 const currentPage = ref(1)
 
 const formDefault = {
-  id: null, company_id: '', name: '', email: '', gender: '', mobile: '', profile_image: '',
+  id: null, company_id: '', name: '', email: '', mobile: '', location: '', dob: '', profile_image: '',
   department_id: '', designation: '', join_date: '', salary: null, salary_type: '',
   username: '', password: '', last_login: '', login_ip: ''
 }
@@ -335,7 +353,7 @@ const filtered = computed(() => {
   const q = search.value.trim().toLowerCase()
   if (!q) return rows.value
   return rows.value.filter((r) =>
-    [r.name, r.gender, r.email, r.mobile, r.username, r.department, r.designation, r.company_name]
+    [r.name, r.email, r.mobile, r.location, r.dob, r.username, r.department, r.designation, r.company_name]
       .map((v) => String(v || '').toLowerCase())
       .some((v) => v.includes(q))
   )
@@ -398,7 +416,7 @@ const openCreate = () => { resetForm(); showForm.value = true }
 const openEdit = (row) => {
   Object.assign(form, {
     id: row.id, company_id: row.company_id || '', name: row.name || '', email: row.email || '',
-    gender: row.gender || '', mobile: row.mobile || '', profile_image: row.profile_image || '', department_id: row.department_id || '',
+    mobile: row.mobile || '', location: row.location || '', dob: row.dob || '', profile_image: row.profile_image || '', department_id: row.department_id || '',
     designation: row.designation || '', join_date: toDateInput(row.join_date), salary: row.salary ?? null,
     salary_type: row.salary_type || '', username: row.username || '', password: '',
     last_login: toDateTimeInput(row.last_login), login_ip: row.login_ip || ''
@@ -504,24 +522,52 @@ watch(() => form.company_id, () => {
 </script>
 
 <style scoped>
-.staff-modal { max-width: 980px; }
-.staff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.staff-full { grid-column: 1 / -1; }
+.staff-modal {
+  max-width: 980px;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.staff-full {
+  grid-column: 1 / -1;
+}
+
 .staff-preview {
-  border: 1.5px dashed #e2e8f0; border-radius: 10px; height: 120px;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  border: 1.5px dashed #e2e8f0;
+  border-radius: 10px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   background: #f8fafc;
 }
-.staff-preview-img { width: 100%; height: 100%; object-fit: contain; }
-.staff-preview-empty { color: #94a3b8; font-size: 12px; }
+
+.staff-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.staff-preview-empty {
+  color: #94a3b8;
+  font-size: 12px;
+}
 
 @media (max-width: 900px) {
-  .staff-grid { grid-template-columns: 1fr; }
+  .staff-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
 .view-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15,23,42,0.4);
+  background: rgba(15, 23, 42, 0.4);
   display: flex;
   justify-content: flex-end;
   z-index: 120;
@@ -533,7 +579,7 @@ watch(() => form.company_id, () => {
   background: white;
   padding: 20px;
   overflow-y: auto;
-  box-shadow: -10px 0 30px rgba(2,6,23,0.15);
+  box-shadow: -10px 0 30px rgba(2, 6, 23, 0.15);
 }
 
 .view-header {
@@ -544,11 +590,13 @@ watch(() => form.company_id, () => {
   padding-bottom: 10px;
   border-bottom: 1px solid #e2e8f0;
 }
+
 .view-header h2 {
   font-size: 18px;
   font-weight: 600;
   color: #0f172a;
 }
+
 .view-close {
   width: 30px;
   height: 30px;
@@ -586,30 +634,42 @@ watch(() => form.company_id, () => {
   justify-content: center;
   margin-bottom: 2px;
 }
+
 .view-img img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
+
 .view-img-empty {
   color: #94a3b8;
   font-size: 12px;
 }
 
-.btn-icon-view { background: #eff6ff; border-color: #bfdbfe; color: #2563eb; }
-.btn-icon-view:hover { background: #dbeafe; }
+.btn-icon-view {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
+}
+
+.btn-icon-view:hover {
+  background: #dbeafe;
+}
 
 /* Animation */
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: all 0.3s ease;
 }
+
 .slide-right-enter-from {
   transform: translateX(100%);
 }
+
 .slide-right-leave-to {
   transform: translateX(100%);
 }
+
 /* Pagination Container */
 .pagination-wrap {
   display: flex;
@@ -632,7 +692,8 @@ watch(() => form.company_id, () => {
 
 /* 🔥 HOVER EFFECT */
 .page-btn:hover {
-  background: #0d9488;   /* teal */
+  background: #0d9488;
+  /* teal */
   color: white;
   border-color: #0d9488;
 }
@@ -649,6 +710,7 @@ watch(() => form.company_id, () => {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .password-wrap {
   position: relative;
 }

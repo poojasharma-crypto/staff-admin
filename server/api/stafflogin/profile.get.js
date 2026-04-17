@@ -1,44 +1,12 @@
 import { db } from '../../utils/db'
-import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
   try {
-    // ✅ 1. Get token from header
-    const authHeader = getHeader(event, 'authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return {
-        status: false,
-        message: 'Unauthorized: No token'
-      }
-    }
-
-    const token = authHeader.split(' ')[1]
-
-    // ✅ 2. Verify token
-    let decoded
-    try {
-      decoded = jwt.verify(
-        token,
-        process.env.JWT_SECRET || 'your_secret_key'
-      )
-    } catch (err) {
-      return {
-        status: false,
-        message: 'Invalid or expired token'
-      }
-    }
-
-    const userId = decoded.id
-
-    // ✅ 3. Fetch user by token id
-    const [rows] = await db.execute(
-      `
+    const [rows] = await db.execute(`
       SELECT 
         s.id,
         s.name,
         s.email,
-        s.gender,
         s.mobile,
         s.profile_image,
         s.designation,
@@ -53,21 +21,12 @@ export default defineEventHandler(async (event) => {
       FROM staff s
       LEFT JOIN companies c ON s.company_id = c.id
       LEFT JOIN departments d ON s.department_id = d.id
-      WHERE s.id = ?
-      `,
-      [userId]
-    )
-
-    if (rows.length === 0) {
-      return {
-        status: false,
-        message: 'User not found'
-      }
-    }
+      WHERE s.id = 15
+    `)
 
     return {
       status: true,
-      message: 'Profile fetched successfully',
+      message: "Profile fetched successfully",
       data: rows[0]
     }
 
