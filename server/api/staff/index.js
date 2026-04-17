@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
         s.company_id,
         c.name AS company_name,
         s.name,
+        s.gender,
         s.email,
         s.mobile,
         s.location,
@@ -46,6 +47,7 @@ export default defineEventHandler(async (event) => {
     const {
       company_id,
       name,
+      gender,
       email,
       mobile,
       location,
@@ -76,6 +78,7 @@ export default defineEventHandler(async (event) => {
       (
         company_id,
         name,
+        gender,
         email,
         mobile,
         location,
@@ -91,10 +94,11 @@ export default defineEventHandler(async (event) => {
         last_login,
         login_ip
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `, [
       company_id,
       name,
+      gender || null,
       email,
       mobile || null,
       location || null,

@@ -61,6 +61,7 @@
                 <th>Company</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Gender</th>
                 <th>Mobile</th>
                 <th>Location</th>
                 <th>DOB</th>
@@ -84,6 +85,8 @@
                 <td>{{ r.company_name || '—' }}</td>
                 <td><span class="company-name">{{ r.name }}</span></td>
                 <td>{{ r.email }}</td>
+                <td>{{ r.gender || '—' }}</td>
+
                 <td class="mono">{{ r.mobile || '—' }}</td>
 
                 <td class="mono">{{ r.location || '—' }}</td>
@@ -162,10 +165,22 @@
                 <label class="label">Name <span class="req">*</span></label>
                 <input v-model="form.name" class="input" required />
               </div>
+
+              <div class="field">
+                <label class="label">Gender</label>
+                <select v-model="form.gender" class="input">
+                  <option value="">Select gender...</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
               <div class="field">
                 <label class="label">Email <span class="req">*</span></label>
                 <input v-model="form.email" type="email" class="input" required />
               </div>
+              
               <div class="field">
                 <label class="label">Mobile</label>
                 <input v-model="form.mobile" class="input" />
@@ -292,6 +307,7 @@
             </div>
 
             <div class="view-item"><b>Name:</b> {{ viewData.name || '—' }}</div>
+            <div class="view-item"><b>Gender:</b> {{ viewData.gender || '—' }}</div>
             <div class="view-item"><b>Email:</b> {{ viewData.email || '—' }}</div>
             <div class="view-item"><b>Mobile:</b> {{ viewData.mobile || '—' }}</div>
 
